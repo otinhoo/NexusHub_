@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Hub - Soluções em Automação e IA</title>
+    <style>
+        /* 
+        [INSTRUÇÕES DE ESTILO]
+        1. Paleta de cores: Preto (#0a0a0a), Branco (#ffffff), Roxo (#6a0dad)
+        2. Efeitos neon apenas em interações (hover, focus)
+        3. Tipografia clean e moderna
+        4. Espaçamentos consistentes
+        */
+        
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --purple: #6a0dad;
+            --purple-neon: #9d4edd;
+            --gray: #1a1a1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        /* 
+        [MENU DE NAVEGAÇÃO]
+        - Fixo no topo
+        - Fundo escuro semi-transparente
+        - Links com efeito neon no hover
+        */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(106, 13, 173, 0.2);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0.9;
+        }
+        
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--purple-neon);
+            text-shadow: 0 0 8px rgba(157, 78, 221, 0.4);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--purple-neon);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px var(--purple-neon);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 
+        [SEÇÃO HERO COM VÍDEO]
+        - Vídeo de fundo cobrindo toda a seção
+        - Overlay escuro para melhor legibilidade
+        - Conteúdo centralizado verticalmente
+        */
+        #hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            overflow: hidden;
+        }
+        
+        #hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+        
+        #hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0.95));
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--white), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h2 {
+            font-size: 2.4rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+        
+        p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        /* 
+        [BOTÕES]
+        - Primário: Fundo roxo com hover neon
+        - Outline: Borda roxa com hover neon
+        */
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background: var(--purple);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(106, 13, 173, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--purple-neon);
+            box-shadow: 0 6px 20px rgba(157, 78, 221, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--purple);
+            color: var(--purple);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--purple-neon);
+            color: var(--purple-neon);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
+        }
+        
+        /* 
+        [SEÇÃO DE SOLUÇÕES/SERVIÇOS]
+        - Grid responsivo de cards
+        - Efeito de hover com borda neon
+        - Espaço para imagem em cada solução
+        */
+        .section {
+            padding: 6rem 2rem;
+            scroll-margin-top: 80px;
+        }
+        
+        #services {
+            background-color: var(--black);
+        }
+        
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        
+        .service-card {
+            background: var(--gray);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(106, 13, 173, 0.1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            border: 1px solid var(--purple);
+            box-shadow: 0 10px 30px rgba(106, 13, 173, 0.15);
+        }
+        
+        .service-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            background-color: rgba(106, 13, 173, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+        
+        .service-card p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* [SEÇÃO IDEALIZADOR] */
+#idealizador {
+    background-color: var(--gray);
+}
+
+.idealizador-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.idealizador-descricao {
+    flex: 3;
+}
+
+.idealizador-descricao h2 {
+    margin-bottom: 0.75rem;
+}
+
+.idealizador-descricao h3 {
+    color: var(--purple);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+.idealizador-descricao p {
+    margin-bottom: 1rem;
+    max-width: none;
+}
+.idealizador-descricao p:last-child {
+    margin-bottom: 0;
+}
+
+.idealizador-imagem {
+    flex: 2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.idealizador-imagem img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Responsive adjustments for Idealizador section */
+@media (max-width: 992px) {
+    .idealizador-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .idealizador-descricao {
+        order: 1;
+        margin-bottom: 2.5rem;
+        text-align: left;
+    }
+    .idealizador-descricao h2,
+    .idealizador-descricao h3 {
+        text-align: center;
+    }
+    .idealizador-descricao p {
+        text-align: justify;
+    }
+
+    .idealizador-imagem {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+    }
+    .idealizador-imagem img {
+      max-width: 70%;
+      margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .idealizador-imagem img {
+        max-width: 80%;
+    }
+    .idealizador-descricao p {
+        font-size: 1rem;
+    }
+}
+
+/* 
+        [SEÇÃO DE CONTATO]
+        - Formulário removido conforme solicitado
+        - Botão centralizado
+        */
+        #contact {
+            background-color: var(--gray);
+            text-align: center;
+        }
+        
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-btn-container {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* 
+        [RODAPÉ]
+        - Ícones sociais (Instagram e Discord)
+        - Links simples sem cor
+        */
+        footer {
+            background-color: var(--black);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(106, 13, 173, 0.1);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+        
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* 
+        [RESPONSIVIDADE]
+        - Ajustes para mobile
+        */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+    [MENU DE NAVEGAÇÃO]
+    - Removido o nome no topo conforme solicitado
+    - Links âncora para rolagem suave
+    -->
+    <nav>
+        <div class="nav-links">
+            <a href="#hero">Início</a>
+            <a href="#services">Soluções</a>
+            <a href="#contact">Contato</a>
+        </div>
+    </nav>
+
+    <!-- 
+    [SEÇÃO HERO]
+    - Vídeo de fundo com overlay escuro
+    - Título e chamada para ação
+    -->
+    <section id="hero">
+        <!-- 
+        [VÍDEO DE FUNDO]
+        - Substitua o src pelo seu link de vídeo
+        - Atributos para autoplay em loop
+        -->
+        <video autoplay muted loop playsinline>
+            <source src="https://yfsndaejiybdqoxcbjuz.supabase.co/storage/v1/object/public/victor-pessoal//fundosite.mp4%20-%20Feito%20com%20o%20Clipchamp_1746591552996.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+        
+        <h1>NexusHub</h1>
+        <p>Automatizar não é apenas eliminar tarefas manuais, é impulsionar o futuro do seu negócio.
+É transformar horas desperdiçadas em resultados concretos. É substituir processos repetitivos por inteligência estratégica.
+Automatizar é liberar o potencial da sua equipe para que ela foque no que realmente importa: criar, inovar e crescer de forma sustentável.
+É colocar sua empresa em ritmo de escala, com mais eficiência, agilidade e controle.
+Automatizar é evoluir. E toda evolução começa com uma decisão inteligente. <a>A sua pode começar agora.</a>
+        <div style="display: flex; gap: 1.2rem; margin-top: 1.5rem;">
+            <a href="#services" class="btn btn-outline">Nossas Soluções</a>
+            <a href="#contact" class="btn btn-outline">Fale Conosco</a>
+        </div>
+    </section>
+
+    <!-- 
+    [SEÇÃO DE SOLUÇÕES]
+    - Grid de cards com 6 soluções
+    - Cada card tem espaço para imagem
+    - Efeito hover com borda neon
+    -->
+    <section id="services" class="section">
+        <div class="services-container">
+            <h2>Nossas Soluções</h2>
+            <a>Tecnologias personalizadas para atender às necessidades específicas do seu negócio.</a>
+            
+            <div class="services-grid">
+                <!-- 
+                [CARD DE SOLUÇÃO 1]
+                - Espaço para imagem (substitua o src)
+                - Título e descrição
+                -->
+                <div class="service-card">
+                    <div class="service-img">
+                        <!-- SUBSTITUA PELA SUA IMAGEM -->
+                        <img src="https://pmzasogmiuxyinbhccml.supabase.co/storage/v1/object/public/imagens//ai-generated-8670529_640.jpg" alt="Automação de Tarefas">
+                    </div>
+                    <h3>Automação de Tarefas</h3>
+                    <p>Robôs inteligentes que executam processos repetitivos com precisão absoluta, liberando sua equipe para atividades estratégicas.</p>
+                </div>
+                
+                <!-- [CARD DE SOLUÇÃO 2] -->
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://pmzasogmiuxyinbhccml.supabase.co/storage/v1/object/public/imagens//ai-generated-8670529_640.jpg" alt="Inteligência Artificial">
+                    </div>
+                    <h3>Inteligência Artificial</h3>
+                    <p>Sistemas cognitivos que aprendem com seus dados para tomar decisões precisas e prever tendências de mercado.</p>
+                </div>
+                
+                <!-- [CARD DE SOLUÇÃO 3] -->
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://pmzasogmiuxyinbhccml.supabase.co/storage/v1/object/public/imagens//ai-generated-8670529_640.jpg" alt="Processos de Vendas">
+                    </div>
+                    <h3>Processos de Vendas</h3>
+                    <p>Otimização do funil de vendas com automação de prospecção, follow-up inteligente e análise preditiva.</p>
+                </div>
+                
+                <!-- [CARD DE SOLUÇÃO 4] -->
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://pmzasogmiuxyinbhccml.supabase.co/storage/v1/object/public/imagens//ai-generated-8670529_640.jpg" alt="Análise de Dados">
+                    </div>
+                    <h3>Análise de Dados</h3>
+                    <p>Transformação de dados brutos em insights acionáveis com dashboards interativos e relatórios automatizados.</p>
+                </div>
+                
+                <!-- [CARD DE SOLUÇÃO 5] -->
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://pmzasogmiuxyinbhccml.supabase.co/storage/v1/object/public/imagens//ai-generated-8670529_640.jpg" alt="Integração de Sistemas">
+                    </div>
+                    <h3>Integração de Sistemas</h3>
+                    <p>Conexão perfeita entre suas plataformas existentes para criar um ecossistema tecnológico coeso.</p>
+                </div>
+                
+                <!-- [CARD DE SOLUÇÃO 6] -->
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://pmzasogmiuxyinbhccml.supabase.co/storage/v1/object/public/imagens//ai-generated-8670529_640.jpg" alt="Otimização Contínua">
+                    </div>
+                    <h3>Otimização Contínua</h3>
+                    <p>Monitoramento 24/7 e ajustes automáticos para manter seus processos sempre no pico de eficiência.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+    [SEÇÃO DE CONTATO]
+    - Formulário removido conforme solicitado
+    - Textos de descrição mantidos
+    - Botão centralizado como backredirect
+    -->
+    <section id="contact" class="section">
+        <div class="contact-container">
+            <h2>Pronto para Transformar seu Negócio?</h2>
+            <p>Entre em contato para uma consultoria gratuita sobre nossas soluções.</p>
+            
+            <div class="contact-btn-container">
+                <!-- 
+                [BOTÃO DE CONTATO COM BACKREDIRECT]
+                - Substitua a URL pelo seu link real
+                - Abre em nova aba (target="_blank")
+                -->
+                <a href="https://wa.me/5515981609882?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20seus%20servi%C3%A7os..." class="btn btn-primary" target="_blank">Entrar em Contato</a>
+            </div>
+        </div>
+    </section>
+<!-- [SEÇÃO IDEALIZADOR] -->
+<section id="idealizador" class="section">
+    <div class="idealizador-container">
+        <div class="idealizador-imagem">
+            <img src="https://pmzasogmiuxyinbhccml.supabase.co/storage/v1/object/public/imagens//WhatsApp%20Image%202025-05-07%20at%2012.13.39.jpeg" alt="Idealizador Victor Silva">
+        </div>
+        <div class="idealizador-descricao">
+            <h2>Idealizador</h2>
+            <h3>Victor Silva</h3>
+            <p>Com uma carreira sólida de mais de 4 anos, Victor Silva se destacou como um especialista em Inteligência Artificial, Automação de Processos e Soluções Personalizadas para negócios. Atuando em projetos de pequeno a grande porte, acumulou uma bagagem valiosa ao desenvolver soluções escaláveis, automatizadas e sob medida para diferentes setores do mercado.</p> <p>Victor domina uma ampla gama de ferramentas como n8n, Make, Zapier, Manychat, OpenAI, entre outras, integrando sistemas diversos, desde CRMs, ERPs e plataformas de atendimento até redes sociais e e-commerces. Seu maior diferencial é a habilidade estratégica de identificar gargalos operacionais e propor automações inteligentes que aumentam a eficiência, reduzem custos e aceleram resultados.</p> <p>Com foco em melhoria contínua, ele estrutura fluxos automatizados de ponta a ponta: desde o primeiro contato com o cliente, passando por vendas, pós-vendas, agendamentos, notificações, captação de leads e análise de dados. Além disso, Victor também é reconhecido por sua capacidade de traduzir desafios complexos em soluções simples e eficazes, sempre com foco na experiência do cliente final.</p> <p>Seu compromisso é entregar automações que realmente transformam a operação, trazendo escalabilidade, organização e inteligência para o dia a dia das empresas.</p>
+        </div>
+    </div>
+</section>
+
+
+    <!-- 
+    [RODAPÉ]
+    - Ícones sociais (Instagram e Discord)
+    - Links com redirecionamento externo
+    -->
+    <footer>
+        <div class="social-links">
+            <!-- 
+            [ÍCONE DO INSTAGRAM]
+            - Substitua o link pelo seu perfil
+            - Ícone em branco puro
+            -->
+            <a href="https://www.instagram.com/nexushub_automatic?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+            
+            <!-- 
+            [ÍCONE DO DISCORD]
+            - Substitua o link pelo seu servidor
+            - Ícone em branco puro
+            -->
+           <a href="https://discord.gg/yubaAsQhyS" target="_blank">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+    </svg>
+</a>
+             </div>
+            <a class="copyright">© 2023 Nexus Hub. Todos os direitos reservados.</a>
+    </footer>
+
+    <!-- 
+    [SCRIPTS]
+    - Scroll suave para âncoras
+    - Funções básicas de interação
+    -->
+    <script>
+        // Scroll suave para links âncora
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Carregamento otimizado do vídeo
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('#hero video');
+            video.load();
+        });
+    </script>
+</body>
+</html>
