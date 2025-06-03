@@ -424,6 +424,82 @@
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.5);
         }
+
+        /* [SEÇÃO VSL] */
+        #vsl {
+            background-color: var(--black);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .vsl-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .vsl-player {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(106, 13, 173, 0.2);
+        }
+
+        .vsl-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(106, 13, 173, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .play-button:hover {
+            background-color: rgba(157, 78, 221, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-button::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 25px solid white;
+            margin-left: 5px;
+        }
+
+        .vsl-player.playing .play-button {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .vsl-text {
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
         
         /* 
         [RESPONSIVIDADE]
@@ -444,6 +520,17 @@
             
             .services-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .play-button {
+                width: 50px;
+                height: 50px;
+            }
+
+            .play-button::after {
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-left: 15px solid white;
             }
         }
     </style>
@@ -474,7 +561,7 @@
         - Atributos para autoplay em loop
         -->
         <video autoplay muted loop playsinline>
-            <source src="https://yfsndaejiybdqoxcbjuz.supabase.co/storage/v1/object/public/victor-pessoal//fundosite.mp4%20-%20Feito%20com%20o%20Clipchamp_1746591552996.mp4" type="video/mp4">
+<source src="https://drive.google.com/uc?export=download&id=1JD2nZfd0pmz0CuyIsnkW1YL6gA1kRhQW" type="video/mp4">
             Seu navegador não suporta vídeos HTML5.
         </video>
         
@@ -487,6 +574,22 @@ Automatizar é evoluir. E toda evolução começa com uma decisão inteligente. 
         <div style="display: flex; gap: 1.2rem; margin-top: 1.5rem;">
             <a href="#services" class="btn btn-outline">Nossas Soluções</a>
             <a href="#contact" class="btn btn-outline">Fale Conosco</a>
+        </div>
+    </section>
+
+    <!-- [SEÇÃO VSL] -->
+    <section id="vsl" class="section">
+        <div class="vsl-container">
+            <h2>Descubra Como Podemos Transformar Seu Negócio</h2>
+            <p class="vsl-text">Assista ao vídeo abaixo e entenda como nossas soluções podem impulsionar seus resultados</p>
+            
+            <div class="vsl-player">
+                <video id="vsl-video" poster="https://via.placeholder.com/800x450?text=Clique+para+assistir" preload="metadata">
+                    <source src="https://drive.google.com/uc?export=download&id=1JD2nZfd0pmz0CuyIsnkW1YL6gA1kRhQW" type="video/mp4">
+                    Seu navegador não suporta vídeos HTML5.
+                </video>
+                <div class="play-button"></div>
+            </div>
         </div>
     </section>
 
@@ -654,6 +757,41 @@ Automatizar é evoluir. E toda evolução começa com uma decisão inteligente. 
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.querySelector('#hero video');
             video.load();
+            
+            // VSL Player functionality
+            const vslPlayer = document.querySelector('.vsl-player');
+            const vslVideo = document.getElementById('vsl-video');
+            const playButton = document.querySelector('.play-button');
+            
+            // Click to play/pause
+            vslPlayer.addEventListener('click', function() {
+                if (vslVideo.paused) {
+                    vslVideo.play();
+                    vslPlayer.classList.add('playing');
+                } else {
+                    vslVideo.pause();
+                    vslPlayer.classList.remove('playing');
+                }
+            });
+            
+            // Show play button when video ends
+            vslVideo.addEventListener('ended', function() {
+                vslPlayer.classList.remove('playing');
+            });
+            
+            // Keyboard controls
+            document.addEventListener('keydown', function(e) {
+                if (e.code === 'Space' && document.activeElement !== vslVideo) {
+                    e.preventDefault();
+                    if (vslVideo.paused) {
+                        vslVideo.play();
+                        vslPlayer.classList.add('playing');
+                    } else {
+                        vslVideo.pause();
+                        vslPlayer.classList.remove('playing');
+                    }
+                }
+            });
         });
     </script>
 </body>
